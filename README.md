@@ -1,6 +1,6 @@
 # Hilton C-Meter for ESP8266
 
-A simple C++ firmware for Ralph Hilton's C-Meter, adapted for the **NodeMCU (ESP-12E)** board based on the specs from [his website]([URL_HERE](https://web.archive.org/web/20060102021322/http://www.cmeter.org/) (web archive). 
+A simple C++ firmware for Ralph Hilton's C-Meter, adapted for the **NodeMCU (ESP-12E)** board based on the specs from [his website](https://web.archive.org/web/20060102021322/http://www.cmeter.org/) (web archive). 
 
 It is made purely to test the C-Meter desktop app using the board's internal ADC.
 
