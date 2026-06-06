@@ -13,7 +13,7 @@ The primary purpose of this repository is to provide a minimalist setup for **te
 ### Hardware Upgrade Path
 If you wish to build a production-grade device, you can adapt this firmware to work with an external, low-noise, **24-bit differential Sigma-Delta ADC** with a sampling rate of **at least 300 SPS (Samples Per Second)**.
 
-## 🔌 Connection & Hardware Note (Endless Bootloop Fix)
+## Connection & Hardware Note (Endless Bootloop Fix)
 
 If you use the onboard Micro-USB/Type-C port of the NodeMCU for communication, you will encounter a hardware conflict: 
 When the PC-side `c-meter` application opens the COM port, it toggles the DTR/RTS lines. Due to the NodeMCU's built-in auto-reset/flashing circuit, this triggers the bootloader state, putting the board into an **endless restart loop**.
