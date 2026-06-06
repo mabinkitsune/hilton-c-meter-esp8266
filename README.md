@@ -1,24 +1,17 @@
-## About the Project
+# Hilton C-Meter for ESP8266
 
-This is a C++ firmware implementation for Ralph Hilton's C-Meter, adapted for the **NodeMCU (ESP-12E / ESP8266)** development board. The firmware is built strictly according to the specifications provided on [Ralph Hilton's official website](https://web.archive.org/web/20060808033709/http://www.ralphhilton.org/). 
+A simple C++ firmware for Ralph Hilton's C-Meter, adapted for the **NodeMCU (ESP-12E)** board based on the specs from [his website]([URL_HERE](https://web.archive.org/web/20060102021322/http://www.cmeter.org/) (web archive). 
 
-The primary purpose of this repository is to provide a minimalist setup for **testing and verifying the C-Meter desktop application** using the ESP-12E's built-in ADC.
+It is made purely to test the C-Meter desktop app using the board's internal ADC.
 
-## ⚠️ Critical Warning & Limitations
+## Important: Internal ADC is for testing only!
+The built-in ADC on the ESP-12E is only 10-bit, single-ended, and quite noisy. It is **not suitable for actual auditing**. 
+If you want to build a real working device, you should adapt this code to use an external low-noise **24-bit differential Sigma-Delta ADC** (with a sampling rate of at least 300 SPS).
 
-> [!WARNING]
-> **Not for Actual Auditing Use.**
-> The built-in ADC of the ESP-12E is a **single-ended (non-differential), noisy 10-bit ADC**. It lacks the resolution and noise-suppression required for actual auditing sessions. This project is intended **strictly for software testing and demonstration purposes**.
+## The Bootloop Issue (and how to fix it)
+If you connect the NodeMCU via its onboard USB port, the `c-meter` app will trigger the DTR/RTS lines upon connection. This triggers the auto-flash circuit and puts the NodeMCU into an **endless reset loop**.
 
-### Hardware Upgrade Path
-If you wish to build a production-grade device, you can adapt this firmware to work with an external, low-noise, **24-bit differential Sigma-Delta ADC** with a sampling rate of **at least 300 SPS (Samples Per Second)**.
-
-## Connection & Hardware Note (Endless Bootloop Fix)
-
-If you use the onboard Micro-USB/Type-C port of the NodeMCU for communication, you will encounter a hardware conflict: 
-When the PC-side `c-meter` application opens the COM port, it toggles the DTR/RTS lines. Due to the NodeMCU's built-in auto-reset/flashing circuit, this triggers the bootloader state, putting the board into an **endless restart loop**.
-
-### **How to use it properly:**
-1. Flash the NodeMCU board using the onboard USB port as usual.
-2. Disconnect the onboard USB.
-3. Connect the NodeMCU to your PC using an **external USB-to-UART (TTL) adapter** using only three wires: **TX, RX, and GND**. Bypassing the onboard USB chip prevents the desktop software from accidentally resetting the microcontroller.
+**How to use it:**
+1. Flash the NodeMCU via the onboard USB port as usual.
+2. Unplug that cable.
+3. Connect to the PC using an **external USB-to-UART adapter** with just 3 wires: **TX, RX, and GND**. This bypasses the auto-reset circuit and works perfectly.
